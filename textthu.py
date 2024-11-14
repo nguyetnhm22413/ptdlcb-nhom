@@ -21,7 +21,6 @@ headers = {
 response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
-    # Sử dụng StringIO từ thư viện io
     df = pd.read_csv(StringIO(response.text))
     st.write(df)
 else:
@@ -50,9 +49,11 @@ st.write(df.isnull().sum())
 df.columns = [col.lower().replace(' ', '_') for col in df.columns]
 df.rename(columns=lambda x: x.replace("(", "").replace(")", ""), inplace=True)
 st.write(df.info())
-df.drop(["customer_email", "customer_fname", "customer_lname", "customer_id", "customer_password", "customer_street", 
-         "customer_zipcode", "department_id", "department_name", "order_item_cardprod_id", "order_state", 
-         "product_description", "product_status", "product_image"], axis=1, inplace=True)
+columns_to_drop = ["customer_email", "customer_fname", "customer_lname", "customer_id", 
+                   "customer_password", "customer_street", "customer_city", "customer_state", 
+                   "customer_zip", "customer_country"]
+
+df.drop([col for col in columns_to_drop if col in df.columns], axis=1, inplace=True)
 st.write(df)
 st.write(df.duplicated().sum())
 st.write(df[df.apply(lambda row: row.astype(str).str.contains('\?').any(), axis=1)])
