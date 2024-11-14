@@ -244,11 +244,12 @@ st.pyplot(fig)
 st.header("Phân tích dự đoán")
 st.subheader('Rủi ro giao hàng trễ')
 
-df_copy = df[['type', 'days_for_shipment_scheduled', 'delivery_status', 'late_delivery_risk', 'category_id',
+existing_columns = [col for col in ['type', 'days_for_shipment_scheduled', 'delivery_status', 'late_delivery_risk', 'category_id',
               'customer_city', 'customer_country', 'customer_segment', 'customer_state', 'latitude', 'longitude',
               'order_country', 'order_city', 'order_item_product_price', 'order_item_quantity', 'order_status',
               'product_card_id', 'product_price', 'shipping_date_dateorders', 'shipping_mode', 'late_days',
-              'order_date_dateorders', 'order_region', 'market']]
+              'order_date_dateorders', 'order_region', 'market'] if col in df.columns]
+df_copy = df[existing_columns]
 
 c = df.corr
 st.write(c['late_delivery_risk'])
