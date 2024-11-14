@@ -251,14 +251,22 @@ existing_columns = [col for col in ['type', 'days_for_shipment_scheduled', 'deli
               'order_date_dateorders', 'order_region', 'market'] if col in df.columns]
 df_copy = df[existing_columns]
 
-c = df.corr
-st.write(c['late_delivery_risk'])
+c = df.corr()  
 
-delivery_status_data = df_1['delivery_status']
-delivery_status_summary = delivery_status_data.value_counts()
+if 'late_delivery_risk' in c.columns:
+    st.write(c['late_delivery_risk'])
+else:
+    st.write("Column 'late_delivery_risk' not found in correlation matrix.")
 
-st.write("Delivery Status Summary:")
-st.write(delivery_status_summary)
+if 'delivery_status' in df_1.columns:
+    delivery_status_data = df_1['delivery_status']
+    delivery_status_summary = delivery_status_data.value_counts()
+
+    st.write("Delivery Status Summary:")
+    st.write(delivery_status_summary)
+else:
+    st.write("Column 'delivery_status' not found in `df_1`.")
+
 
 plt.figure(figsize=(10, 6))
 sns.set(style="whitegrid")
