@@ -8,24 +8,25 @@ st.write("""
 st.header("Phân tích mô tả")
 import pandas as pd
 import requests
+from io import StringIO
 
-# Địa chỉ URL của Google Sheets
 sheet_id = '1L8HOtCvDeGdtLOmWPKrF-5YtkR1ubX-4lnMcaoPZQdU'
 sheet_name = 'Preprocessing data Export'
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 
-# Tải dữ liệu CSV từ Google Sheets
-response = requests.get(url)
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
 
-# Kiểm tra nếu tải thành công
+response = requests.get(url, headers=headers)
+
 if response.status_code == 200:
-    # Đọc dữ liệu vào DataFrame
-    df = pd.read_csv(pd.compat.StringIO(response.text))
+    # Sử dụng StringIO từ thư viện io
+    df = pd.read_csv(StringIO(response.text))
     st.write(df)
 else:
     st.write("Lỗi khi tải dữ liệu")
 
-from io import StringIO
 st.subheader("Thông tin DataFrame")
 st.write(df.dtypes)
 st.subheader("Mô tả thống kê cho các biến số")
