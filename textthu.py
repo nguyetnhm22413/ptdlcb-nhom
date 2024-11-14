@@ -8,6 +8,15 @@ st.write("""
 st.header("Phân tích mô tả")
 import pandas as pd
 import requests
+
+# URL để lấy dữ liệu từ Google Sheets
+sheet_name = 'Preprocessing data Export'
+sheet_id = '1L8HOtCvDeGdtLOmWPKrF-5YtkR1ubX-4lnMcaoPZQdU'
+url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+
+# Đọc dữ liệu từ Google Sheets vào DataFrame
+df = pd.read_csv(url)
+
 from io import StringIO
 st.subheader("Thông tin DataFrame")
 st.write(df.dtypes)
