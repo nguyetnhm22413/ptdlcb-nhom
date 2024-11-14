@@ -289,8 +289,6 @@ plt.ylabel('Count')
 
 st.pyplot(plt)
 
-pip install xgboost
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -316,8 +314,6 @@ import seaborn as sns
 target1 = 'late_delivery_risk'
 if target1 not in df_1.columns:
     raise ValueError(f"The target variable '{target1}' is not present in the dataset.")
-
-pip install imbalanced-learn
 
 from imblearn.over_sampling import SMOTE
 
@@ -509,7 +505,6 @@ target2 = 'sales'
 if target2 not in df_1.columns:
     raise ValueError(f"The target variable '{target2}' is not present in the dataset.")
 
-pip install scikit-learn
 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
