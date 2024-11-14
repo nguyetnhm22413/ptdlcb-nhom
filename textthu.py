@@ -299,8 +299,12 @@ late_delivery_data = df_1[df_1['delivery_status'] == 'Late delivery']
 late_by_product = late_delivery_data['category_name'].value_counts().nlargest(10).reset_index()
 
 plt.figure(figsize=(12, 6))
-sns.barplot(x=late_by_product['index'], y=late_by_product['category_name'], palette='coolwarm')
-plt.title('Top 10 Product Categories with Late Deliveries')
+
+st.write("Columns in late_by_product:", late_by_product.columns.tolist())
+if 'index' in late_by_product.columns and 'category_name' in late_by_product.columns:
+    sns.barplot(x=late_by_product['index'], y=late_by_product['category_name'], palette='coolwarm')
+else:
+    st.write("The required columns ('index', 'category_name') are not found in the 'late_by_product' DataFrame.")plt.title('Top 10 Product Categories with Late Deliveries')
 plt.xlabel('Category Name')
 plt.ylabel('Quantity')
 plt.xticks(rotation=45, ha='right')
