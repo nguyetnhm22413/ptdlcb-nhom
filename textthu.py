@@ -9,13 +9,21 @@ st.header("Phân tích mô tả")
 import pandas as pd
 import requests
 
-# URL để lấy dữ liệu từ Google Sheets
-sheet_name = 'Preprocessing data Export'
+# Địa chỉ URL của Google Sheets
 sheet_id = '1L8HOtCvDeGdtLOmWPKrF-5YtkR1ubX-4lnMcaoPZQdU'
+sheet_name = 'Preprocessing data Export'
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 
-# Đọc dữ liệu từ Google Sheets vào DataFrame
-df = pd.read_csv(url)
+# Tải dữ liệu CSV từ Google Sheets
+response = requests.get(url)
+
+# Kiểm tra nếu tải thành công
+if response.status_code == 200:
+    # Đọc dữ liệu vào DataFrame
+    df = pd.read_csv(pd.compat.StringIO(response.text))
+    st.write(df)
+else:
+    st.write("Lỗi khi tải dữ liệu")
 
 from io import StringIO
 st.subheader("Thông tin DataFrame")
